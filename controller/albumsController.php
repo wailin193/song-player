@@ -11,6 +11,10 @@ class AlbumsController{
         $this->album = new AlbumsModel();
     }
 
+    function albumsFromTrack(){
+        return $this->album->albumsFromTrack();
+    }
+
     function getAlbums(){
         return $this->album->getAlbums();
     }
