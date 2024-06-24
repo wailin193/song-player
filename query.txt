@@ -1,0 +1,63 @@
+create table users(
+	user_id int primary key not null,
+	user_name varchar(100) not null,
+	user_email varchar(100) not null,
+	user_password varchar(50) not null
+);
+
+create table admins(
+	admin_id int primary key not null,
+	admin_name varchar(100) not null,
+	admin_email varchar(100) not null,
+	admin_password varchar(100) not null
+);
+
+create table tracks(
+	track_id int primary key not null,
+	track_title varchar(100) not null,
+	url varchar(255) not null,
+	play_count int(200)
+);
+
+create table artists(
+	artist_id int primary key not null,
+	artist_name varchar(100) ,
+	artist_country varchar(50),
+	artist_photo varchar(255)
+);
+
+create table artist_songs(
+	artist_id int,
+    foreign key(artist_id) references artists(artist_id),
+	track_id int,
+    foreign key(track_id) references tracks(track_id)
+);
+
+
+create table albums(
+	album_id int primary key not null,
+	album_name varchar(100),
+	release_date varchar(50)
+);
+
+create table artist_albums(
+	artist_id int,
+    foreign key(artist_id) references artists(artist_id),
+	album_id int,
+    foreign key(album_id) references albums(album_id)
+);
+
+create table music_types(
+	type_id int primary key not null,
+	type_name varchar(100),
+	track_id int,
+    foreign key(track_id) references tracks(track_id)
+);
+
+create table favourites(
+	favourite_id int primary key not null,
+	track_id int,
+    foreign key(track_id) references tracks(track_id),
+	user_id int,
+    foreign key(user_id) references users(user_id)
+);

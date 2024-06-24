@@ -1,0 +1,121 @@
+https://github.com/ShivamJoker/sample-songs/blob/master/data.json
+
+
+
+‌admin(admin_id,admin_name,email,password,track_id),
+
+user(user_id,username,email,password,gender),
+
+artist(artist_id,artist_name,artist_photo,birth_date,country),
+
+artist_album(artist_id,album_id),
+
+album(album_id,album_name,release_date),
+
+track(track_id,track_title,url,play_count,album_id),
+
+music_type(type_id,type_name,track_id),
+
+user_track(user_id,track_id);
+
+
+admin	(one to many)		track
+
+artist	(many to many)		album
+	(artist_album)
+
+album	(one to many)		track
+
+
+music_type	(one to many)	track
+
+user	(many to many)	track
+	(user_track)	
+		
+
+
+1.Flow 
+2.ER Diagram
+
+				Flow
+1.sign up (user,admin) (username,email,password);=>insert user_table and admin_table
+2.login => (email and password ) use like keyword 
+2.Home Page -> {(admin->delete,edit,add)(user->listen,search,favourite,logout)}
+3.admin_pannel->show chart -> user_list
+
+
+create table users(
+	user_id int primary key not null,
+	user_name varchar(100) not null,
+	user_email varchar(100) not null,
+	user_password varchar(50) not null
+);
+
+create table admins(
+	admin_id int primary key not null,
+	admin_name varchar(100) not null,
+	admin_email varchar(100) not null,
+	admin_password varchar(100) not null
+);
+
+create table tracks(
+	track_id int primary key not null,
+	track_title varchar(100) not null,
+	url varchar(255) not null,
+	play_count int(200)
+);
+
+create table artists(
+	artist_id int primary key not null,
+	artist_name varchar(100) ,
+	artist_country varchar(50),
+	artist_photo varchar(255)
+);
+
+create table artist_songs(
+	artist_id int,
+    foreign key(artist_id) references artists(artist_id),
+	track_id int,
+    foreign key(track_id) references tracks(track_id)
+);
+
+
+create table albums(
+	album_id int primary key not null,
+	album_name varchar(100),
+	release_date varchar(50)
+);
+
+create table artist_albums(
+	artist_id int,
+    foreign key(artist_id) references artists(artist_id),
+	album_id int,
+    foreign key(album_id) references albums(album_id)
+);
+
+create table music_types(
+	type_id int primary key not null,
+	type_name varchar(100),
+	track_id int,
+    foreign key(track_id) references tracks(track_id)
+);
+
+create table favourites(
+	favourite_id int primary key not null,
+	track_id int,
+    foreign key(track_id) references tracks(track_id),
+	user_id int,
+    foreign key(user_id) references users(user_id)
+);
+
+
+
+
+
+
+
+
+
+
+
+
