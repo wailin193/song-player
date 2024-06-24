@@ -5,7 +5,7 @@ include_once '../controller/albumsController.php';
 $album_controller = new AlbumsController;
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
-    $albums = $album_controller->getAlbums();
+    $albums = $album_controller->albumsFromTrack();
     $tracks = $album_controller->detailTrack($id);
 }
 
